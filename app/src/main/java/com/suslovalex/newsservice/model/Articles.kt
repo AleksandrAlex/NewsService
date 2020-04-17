@@ -1,4 +1,6 @@
-import android.os.Parcelable
+
+import androidx.room.Embedded
+import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -16,12 +18,12 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 data class Articles(
 
-	@SerializedName("source") val source : Source,
-	@SerializedName("author") val author : String,
-	@SerializedName("title") val title : String,
-	@SerializedName("description") val description : String,
-	@SerializedName("url") val url : String,
-	@SerializedName("urlToImage") val urlToImage : String,
-	@SerializedName("publishedAt") val publishedAt : String,
-	@SerializedName("content") val content : String
+	@Embedded val source : Source,
+	val author : String,
+	val title : String,
+	val description : String,
+	val url : String,
+	val urlToImage : String,
+	val publishedAt : String,
+	val content : String
 ) : Serializable

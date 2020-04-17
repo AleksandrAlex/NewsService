@@ -1,3 +1,4 @@
+import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -15,6 +16,6 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 data class Source (
 
-	@SerializedName("id") val id : String,
-	@SerializedName("name") val name : String
+	val id : String,
+	val name : String
 ) : Serializable
