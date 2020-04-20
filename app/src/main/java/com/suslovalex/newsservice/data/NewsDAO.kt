@@ -1,8 +1,8 @@
 package com.suslovalex.newsservice.data
 
-import News
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.suslovalex.newsservice.model.News
 
 @Dao
 interface NewsDAO {

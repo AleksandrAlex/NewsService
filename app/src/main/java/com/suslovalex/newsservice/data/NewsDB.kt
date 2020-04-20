@@ -1,15 +1,13 @@
 package com.suslovalex.newsservice.data
 
-import Articles
-import News
-import Source
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.suslovalex.newsservice.model.News
 
 
-@Database(entities = [News::class, Articles::class, Source::class], version = 1, exportSchema = false)
+@Database(entities = [News::class], version = 1, exportSchema = false)
 abstract class NewsDB: RoomDatabase() {
     abstract val newsDAO: NewsDAO
 
@@ -25,7 +23,7 @@ abstract class NewsDB: RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         NewsDB::class.java, "NewsDB"
-                    ).allowMainThreadQueries()
+                    )
                         .build()
                     INSTANCE = instance
                 }

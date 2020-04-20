@@ -1,7 +1,6 @@
 package com.suslovalex.newsservice.viewmodel
 
 
-import News
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
@@ -21,9 +20,11 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
     private var thisNews = "TECHNOLOGY"
     private lateinit var disposable: Disposable
     private val db: NewsDB
+    private lateinit var news: News
 
     init {
         db = NewsDB.getInstance(application)
+
         newsLiveData = db.newsDAO.getAllNews() as MutableLiveData<News>
     }
 

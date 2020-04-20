@@ -1,6 +1,5 @@
 package com.suslovalex.newsservice.view
 
-import Articles
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,25 +7,23 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.suslovalex.newsservice.NewsRecyclerViewAdapter
 import com.suslovalex.newsservice.R
+import com.suslovalex.newsservice.model.Article
 import com.suslovalex.newsservice.viewmodel.NewsViewModel
 import kotlinx.android.synthetic.main.news_service.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var newsRecyclerViewAdapter: NewsRecyclerViewAdapter
-    private var items: ArrayList<Articles> = ArrayList()
+    private var items: ArrayList<Article> = ArrayList()
     private lateinit var swipe: SwipeRefreshLayout
     private var thisNews = "TECHNOLOGY"
-    private val newsViewModel by lazy {
-        ViewModelProvider(this)
-            .get(NewsViewModel::class.java)
-    }
+    private lateinit var newsViewModel: NewsViewModel
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,12 +31,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.news_service)
 
        // newsViewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
-
-        prepareSpinner()
         initRecyclerView()
         subscribeChanges()
-        //loadNews()
+        //loadNews(thisNews)
         prepareSwipe()
+        prepareSpinner()
     }
 
     private fun loadNews(news: String) {
@@ -47,10 +43,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun subscribeChanges() {
+        newsViewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
         newsViewModel.getNewsLiveData().observe(this, Observer {
             it.let {
                 newsRecyclerViewAdapter.setArticles(it.articles)
             } })
+        Log.d("Tag", "fun subscribeChanges()")
     }
 
 
@@ -78,6 +76,7 @@ class MainActivity : AppCompatActivity() {
                 loadNews(thisNews)
             }
         }
+        Log.d("Tag", "fun prepareSpinner()")
     }
 
     private fun setSelectedNews(selectedNews: String) {
@@ -90,6 +89,7 @@ class MainActivity : AppCompatActivity() {
             loadNews(thisNews)
             swipe.isRefreshing = false
         }
+        Log.d("Tag", "fun prepareSwipe()")
     }
 
 
@@ -101,6 +101,7 @@ class MainActivity : AppCompatActivity() {
         news_recycler_view.adapter = newsRecyclerViewAdapter
         newsRecyclerViewAdapter.setArticles(items)
 
+        Log.d("Tag", "fun initRecyclerView()")
     }
 }
 

@@ -1,19 +1,19 @@
 package com.suslovalex.newsservice
 
-import Articles
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.suslovalex.newsservice.model.Article
 import com.suslovalex.newsservice.view.NewsDescription
 import kotlinx.android.synthetic.main.item_news.view.*
 
 
 class NewsRecyclerViewAdapter(): RecyclerView.Adapter<NewsRecyclerViewAdapter.ViewHolder>() {
 
-    private var items: List<Articles> = ArrayList()
+    private lateinit var items: List<Article>
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,11 +26,11 @@ class NewsRecyclerViewAdapter(): RecyclerView.Adapter<NewsRecyclerViewAdapter.Vi
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val article: Articles = items[position]
+        val article: Article = items[position]
         holder.bind(article)
     }
 
-    fun setArticles(articlesList: List<Articles>) {
+    fun setArticles(articlesList: List<Article>) {
         items = articlesList
     }
 
@@ -40,7 +40,7 @@ class NewsRecyclerViewAdapter(): RecyclerView.Adapter<NewsRecyclerViewAdapter.Vi
         private val publishedText: TextView = itemView.publishedAt_text_view
 
 
-        fun bind(article: Articles) {
+        fun bind(article: Article) {
             val author = "Author: " + article.author
             authorText.text = author
             val title = "Article: " + article.title
