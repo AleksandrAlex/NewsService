@@ -1,5 +1,6 @@
 package com.suslovalex.newsservice.retrofit
 
+import com.suslovalex.newsservice.model.News
 import io.reactivex.Observable
 import retrofit2.http.GET
 

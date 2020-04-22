@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.suslovalex.newsservice.NewsRecyclerViewAdapter
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     private var items: ArrayList<Article> = ArrayList()
     private lateinit var swipe: SwipeRefreshLayout
     private var thisNews = "TECHNOLOGY"
-    private lateinit var newsViewModel: NewsViewModel
+    private val newsViewModel by lazy { ViewModelProvider(this).get(NewsViewModel::class.java) }
 
 
 
@@ -30,7 +30,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.news_service)
 
-       // newsViewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
         initRecyclerView()
         subscribeChanges()
         //loadNews(thisNews)
@@ -39,13 +38,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadNews(news: String) {
-        newsViewModel.loadNewsFromDataBase(news)
+        newsViewModel.loadNewsToDataBase(news)
     }
 
     private fun subscribeChanges() {
-        newsViewModel = ViewModelProviders.of(this).get(NewsViewModel::class.java)
         newsViewModel.getNewsLiveData().observe(this, Observer {
-            it.let {
+            it?.let {
                 newsRecyclerViewAdapter.setArticles(it.articles)
             } })
         Log.d("Tag", "fun subscribeChanges()")

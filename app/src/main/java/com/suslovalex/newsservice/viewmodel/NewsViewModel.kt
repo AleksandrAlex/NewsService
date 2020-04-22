@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.suslovalex.newsservice.data.NewsDB
+import com.suslovalex.newsservice.model.News
 import com.suslovalex.newsservice.retrofit.APINews
 import com.suslovalex.newsservice.retrofit.NewsClient
 import io.reactivex.Observable
@@ -16,16 +17,15 @@ import io.reactivex.schedulers.Schedulers
 
 class NewsViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var newsLiveData: MutableLiveData<News>
+    private var newsLiveData: LiveData<News>
     private var thisNews = "TECHNOLOGY"
     private lateinit var disposable: Disposable
     private val db: NewsDB
-    private lateinit var news: News
 
     init {
         db = NewsDB.getInstance(application)
 
-        newsLiveData = db.newsDAO.getAllNews() as MutableLiveData<News>
+        newsLiveData = db.newsDAO.getAllNews()
     }
 
     fun getNewsLiveData(): LiveData<News> = newsLiveData
@@ -38,7 +38,7 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
         db.newsDAO.deleteAllNews()
     }
 
-    fun loadNewsFromDataBase(selectedBlogNews: String) {
+    fun loadNewsToDataBase(selectedBlogNews: String) {
         thisNews = selectedBlogNews
         val retrofit = NewsClient.instance
         val articleRetrofit = retrofit.create(APINews::class.java)
@@ -57,7 +57,6 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
             .subscribe({
                 removeAllNewsFromDataBase()
                 insertNewsToDataBase(it)
-                newsLiveData.postValue(it)
             }, {
 
             })
