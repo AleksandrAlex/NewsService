@@ -23,22 +23,21 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
 
     private var thisNews = "TECHNOLOGY"
     private var compositeDisposable = CompositeDisposable()
-    private val db: NewsDB = NewsDB.getInstance(application.applicationContext)
-    private var newsLiveData = db.newsDAO.getAllNews()
+    private val db: NewsDB = NewsDB.getInstance(this.getApplication())
+    private var newsLiveData = MutableLiveData<News>()
     private var mNews: News? = null
 
 //    init {
 //        newsLiveData = db.newsDAO.getAllNews()
 //    }
 
-//    private fun setNews(news: News){
-//        newsLiveData.value = news
-//        Log.d("load", "")
-//    }
+    private fun setNews(news: News){
+      //  newsLiveData = db.newsDAO.getAllNews() as MutableLiveData<News>
+        newsLiveData.value = news
+    }
 
     fun getNewsLiveData(): LiveData<News> {
         Log.d("Tag", "fun getNewsLiveData()${newsLiveData.value}")
-        newsLiveData = db.newsDAO.getAllNews()
         return newsLiveData
     }
 
@@ -75,8 +74,10 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                removeAllNewsFromDataBase()
-                insertNewsToDataBase(it)
+               // removeAllNewsFromDataBase()
+               // insertNewsToDataBase(it)
+                setNews(it)
+                mNews = it
 
                 Log.d("load", "fun loadNewsToDataBase ${Gson().toJson(mNews)}")
             }, {

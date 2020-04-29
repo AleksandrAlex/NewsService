@@ -92,6 +92,7 @@ class MainActivity : AppCompatActivity() {
 
               it?.let {
                   newsRecyclerViewAdapter.setArticles(it.articles)
+                  newsRecyclerViewAdapter.notifyDataSetChanged()
 
               }
 
