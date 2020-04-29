@@ -1,6 +1,7 @@
 package com.suslovalex.newsservice
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +33,7 @@ class NewsRecyclerViewAdapter(): RecyclerView.Adapter<NewsRecyclerViewAdapter.Vi
 
     fun setArticles(articlesList: List<Article>) {
         items = articlesList
+        Log.d("Tag", "fun setArticles() $items")
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

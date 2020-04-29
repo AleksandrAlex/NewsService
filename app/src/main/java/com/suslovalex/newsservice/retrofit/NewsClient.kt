@@ -11,7 +11,7 @@ object NewsClient {
     get() {
         if (retrofit==null){
             retrofit = Retrofit.Builder()
-                .baseUrl("http://newsapi.org/")
+                .baseUrl("https://newsapi.org/v2/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()

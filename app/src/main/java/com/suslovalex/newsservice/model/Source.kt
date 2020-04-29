@@ -4,6 +4,6 @@ package com.suslovalex.newsservice.model
 import java.io.Serializable
 
 data class Source(
-    val id: Int,
+    val id: Any,
     val name: String
 ): Serializable
