@@ -27,6 +27,7 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
     private var newsLiveData = MutableLiveData<News>()
     private var mNews: News? = null
 
+
 //    init {
 //        newsLiveData = db.newsDAO.getAllNews()
 //    }

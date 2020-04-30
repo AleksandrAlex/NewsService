@@ -41,7 +41,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.news_service)
+           setContentView(R.layout.news_service)
+
+
+
 
         initRecyclerView()
         //loadNews()
