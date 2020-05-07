@@ -15,5 +15,8 @@ interface NewsDAO {
     @Query("DELETE FROM news")
     fun deleteAllNews()
 
+    @Query ("SELECT COUNT (*) FROM news")
+    fun getCount(): Int
+
 
 }

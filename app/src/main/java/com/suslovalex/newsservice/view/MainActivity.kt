@@ -35,16 +35,14 @@ class MainActivity : AppCompatActivity() {
     private var items: List<Article> = mutableListOf()
     private lateinit var swipe: SwipeRefreshLayout
     private var thisNews = "TECHNOLOGY"
-    private val newsViewModel by lazy { ViewModelProvider(this).get(NewsViewModel::class.java) }
-    private var mNews: News? = null
 
+    private val newsViewModel by lazy { ViewModelProvider(this).get(NewsViewModel::class.java) }
+
+    private var mNews: News? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
            setContentView(R.layout.news_service)
-
-
-
 
         initRecyclerView()
         //loadNews()
@@ -87,8 +85,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
-
     private fun subscribeChanges() {
         Log.d("Tag", "fun subscribeChanges()")
         newsViewModel.getNewsLiveData().observe(this, Observer {
@@ -119,8 +115,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
-
 
     private fun initRecyclerView() {
         Log.d("Tag", "fun initRecyclerView()")

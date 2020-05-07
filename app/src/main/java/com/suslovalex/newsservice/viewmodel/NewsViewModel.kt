@@ -24,7 +24,7 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
     private var thisNews = "TECHNOLOGY"
     private var compositeDisposable = CompositeDisposable()
     private val db: NewsDB = NewsDB.getInstance(this.getApplication())
-    private var newsLiveData = MutableLiveData<News>()
+    private val newsLiveData = MutableLiveData<News>()
     private var mNews: News? = null
 
 
@@ -75,8 +75,8 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-               // removeAllNewsFromDataBase()
-               // insertNewsToDataBase(it)
+//                removeAllNewsFromDataBase()
+//                insertNewsToDataBase(it)
                 setNews(it)
                 mNews = it
 
