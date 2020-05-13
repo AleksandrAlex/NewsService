@@ -11,6 +11,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.suslovalex.newsservice.data.NewsDB
 import com.suslovalex.newsservice.model.News
+import com.suslovalex.newsservice.repository.NewsRepository
 import com.suslovalex.newsservice.retrofit.APINews
 import com.suslovalex.newsservice.retrofit.NewsClient
 import io.reactivex.Observable
@@ -22,35 +23,19 @@ import io.reactivex.schedulers.Schedulers
 class NewsViewModel(application: Application) : AndroidViewModel(application) {
 
     private var thisNews = "TECHNOLOGY"
-    private var compositeDisposable = CompositeDisposable()
-    private val db: NewsDB = NewsDB.getInstance(this.getApplication())
-    private val newsLiveData = MutableLiveData<News>()
+    private lateinit var disposable : Disposable
     private var mNews: News? = null
 
+    private val newsRepository: NewsRepository = NewsRepository(application)
+    private var news: LiveData<News>
 
-//    init {
-//        newsLiveData = db.newsDAO.getAllNews()
-//    }
-
-    private fun setNews(news: News){
-      //  newsLiveData = db.newsDAO.getAllNews() as MutableLiveData<News>
-        newsLiveData.value = news
+    init {
+        news = newsRepository.getAllNews()
+        Log.d("viewModel_init_news", "${news.value}")
     }
 
     fun getNewsLiveData(): LiveData<News> {
-        Log.d("Tag", "fun getNewsLiveData()${newsLiveData.value}")
-        return newsLiveData
-    }
-
-    private fun insertNewsToDataBase(news: News){
-        db.newsDAO.insetNews(news)
-       // setNews(news)
-    }
-
-    private fun removeAllNewsFromDataBase(){
-       // newsLiveData.postValue(null)
-        db.newsDAO.deleteAllNews()
-
+        return news
     }
 
     fun loadNewsToDataBase(selectedBlogNews: String) {
@@ -71,28 +56,33 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
         }
         Log.d("load", "$observable")
 
-        var disposable = observable!!
+        disposable = observable!!
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+//            .observeOn(Schedulers.newThread())
             .subscribe({
-//                removeAllNewsFromDataBase()
-//                insertNewsToDataBase(it)
-                setNews(it)
                 mNews = it
+                removeAllNewsFromDataBase()
+                insertNewsToDataBase(it)
+//                setNews(it)
 
                 Log.d("load", "fun loadNewsToDataBase ${Gson().toJson(mNews)}")
             }, {
             })
 //            Log.d("load", "fun loadNewsToDataBase end1 ${mNews?.let { setNews(it) }}")
             Log.d("load", "fun loadNewsToDataBase end2 ${Gson().toJson(mNews)}")
-        compositeDisposable.add(disposable)
+
+    }
+
+    private fun insertNewsToDataBase(news: News) {
+        newsRepository.insert(news)
+    }
+
+    private fun removeAllNewsFromDataBase() {
+        newsRepository.deleteAllNews()
     }
 
     override fun onCleared() {
         super.onCleared()
-        compositeDisposable.dispose()
+        disposable.dispose()
     }
-
-
-
 }

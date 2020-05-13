@@ -96,8 +96,6 @@ class MainActivity : AppCompatActivity() {
               }
 
              })
-
-
     }
 
     private fun setSelectedNews(selectedNews: String) {
@@ -124,9 +122,6 @@ class MainActivity : AppCompatActivity() {
         newsRecyclerViewAdapter = NewsRecyclerViewAdapter()
         news_recycler_view.adapter = newsRecyclerViewAdapter
         newsRecyclerViewAdapter.setArticles(items)
-
-
-
     }
 }
 
