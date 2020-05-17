@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers
 class NewsRepository (application: Application ) {
     private lateinit var disposable : Disposable
     private val newsDAO : NewsDAO
-     private var newsLiveData : LiveData<News>
+    private var newsLiveData : LiveData<News>
     private val newsDB: NewsDB = NewsDB.getInstance(application)
     private var mNews: News? = null
 
@@ -73,9 +73,9 @@ class NewsRepository (application: Application ) {
                 //Toast.makeText(getApplication(),"ERROR!", Toast.LENGTH_LONG).show()
             })
         Log.d("load", "fun loadNewsToDataBase end2 ${Gson().toJson(mNews)}")
-
-
-//             disposable.dispose()
     }
 
+    fun dispose(){
+        disposable.dispose()
+    }
 }

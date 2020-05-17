@@ -24,4 +24,9 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
     fun loadNewsToDataBase(selectedBlogNews: String) {
         newsRepository.loadData(selectedBlogNews)
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        newsRepository.dispose()
+    }
 }
