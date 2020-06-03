@@ -26,18 +26,22 @@
 
             <TextView
                 android:id="@+id/author_text_view"
+                android:textSize="20sp"
+                android:textColor="@color/colorText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{article.author}" />
 
             <TextView
                 android:id="@+id/title_text_view"
+                android:textColor="@color/colorText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{article.title}" />
 
             <TextView
                 android:id="@+id/publishedAt_text_view"
+                android:textColor="@color/colorText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{article.publishedAt}" />

@@ -9,12 +9,13 @@ apply plugin: 'kotlin-kapt'
 
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 28
+    testOptions.unitTests.includeAndroidResources = true
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.suslovalex.newsservice"
         minSdkVersion 19
-        targetSdkVersion 29
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -91,7 +92,26 @@ dependencies {
 
     kapt "android.arch.persistence.room:compiler:1.1.1"
 
-    
+    testImplementation 'junit:junit:4.12'
+    // Optional -- Robolectric environment
+    testImplementation 'androidx.test:core:1.2.0'
+    // Optional -- Mockito framework
+    testImplementation 'org.mockito:mockito-core:2.19.0'
+
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test:core:1.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
+
+
+    testImplementation 'org.mockito:mockito-inline:2.13.0'
+
+    testImplementation "org.robolectric:robolectric:4.3.1"
+
+
+
+
 
 
 

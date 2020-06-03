@@ -22,6 +22,7 @@ class NewsRepository (application: Application ) {
     private val newsDB: NewsDB = NewsDB.getInstance(application)
     private var mNews: News? = null
 
+
     init {
         newsDAO = newsDB.newsDAO()
         newsLiveData = newsDAO.getAllNews()
@@ -60,7 +61,7 @@ class NewsRepository (application: Application ) {
         disposable = observable!!
             .subscribeOn(Schedulers.io())
             //.delay(3, TimeUnit.SECONDS)
-            //.replay()
+//            .replay()
 //            .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 deleteAllNews()
